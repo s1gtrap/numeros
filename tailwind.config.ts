@@ -8,11 +8,12 @@ const config: Config = {
   ],
   theme: {
     colors: {
-      "rose-red": "#c33c54ff",
-      "indigo-dye": "#254e70",
-      cerulean: "#37718e",
-      "non-photo-blue": "#8ee3ef",
       celeste: "#aef3e7",
+      cerulean: "#37718e",
+      green: "#00ff0088",
+      "indigo-dye": "#254e70",
+      "non-photo-blue": "#8ee3ef",
+      "rose-red": "#c33c54ff",
     },
     extend: {
       backgroundImage: {
