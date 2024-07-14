@@ -8,6 +8,10 @@ function random(min: number, max: number): number {
   return Math.floor(Math.random() * max + min);
 }
 
+function isString(v: any): boolean {
+  return typeof v === "string" || v instanceof String;
+}
+
 export default function Home() {
   const min = 0;
   const max = 100;
@@ -22,13 +26,15 @@ export default function Home() {
   useEffect(() => {
     function handleKeyUp(e: KeyboardEvent) {
       if (48 <= e.keyCode && e.keyCode <= 57) {
-        setAnim(1);
         setGuess(`${guess}${e.key}`);
       } else if (e.keyCode === 8) {
         setGuess(guess.slice(0, guess.length - 1));
       } else if (e.keyCode === 13) {
         if (guess === answer.toString()) {
           setAnswer(random(min, max));
+          setAnim("bg-green");
+        } else {
+          setAnim("bg-red");
         }
 
         setGuess("");
@@ -42,10 +48,10 @@ export default function Home() {
     };
   }, [guess]);
 
-  const [anim, setAnim] = useState(0);
+  const [anim, setAnim] = useState<number | string>(0);
 
   useEffect(() => {
-    if (anim === 1) {
+    if (isString(anim)) {
       setAnim(2);
     } else if (anim === 2) {
       const timer = setTimeout(() => {
@@ -57,7 +63,7 @@ export default function Home() {
 
   return (
     <main
-      className={`flex flex-col h-screen items-center justify-between ${inter.className} ${anim === 0 ? "" : anim === 1 ? "bg-green" : "duration-1000 transition-colors"}`}
+      className={`flex flex-col h-screen items-center justify-between ${inter.className} ${anim === 0 ? "" : isString(anim) ? anim : "duration-1000 transition-colors"}`}
     >
       <div className="flex grow items-center">
         <p className="drop-shadow-md hyphens-auto text-4xl text-center text-rose-red">

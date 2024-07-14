@@ -13,6 +13,7 @@ const config: Config = {
       green: "#00ff0088",
       "indigo-dye": "#254e70",
       "non-photo-blue": "#8ee3ef",
+      red: "#ff000088",
       "rose-red": "#c33c54ff",
     },
     extend: {
