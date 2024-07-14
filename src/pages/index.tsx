@@ -56,14 +56,14 @@ export default function Home() {
     } else if (anim === 2) {
       const timer = setTimeout(() => {
         setAnim(0);
-      }, 1000);
+      }, 700);
       return () => clearTimeout(timer);
     }
   }, [anim]);
 
   return (
     <main
-      className={`flex flex-col h-screen items-center justify-between ${inter.className} ${anim === 0 ? "" : isString(anim) ? anim : "duration-1000 transition-colors"}`}
+      className={`flex flex-col h-screen items-center justify-between ${inter.className} ${anim === 0 ? "" : isString(anim) ? anim : "duration-700 transition-colors"}`}
     >
       <div className="flex grow items-center">
         <p className="drop-shadow-md hyphens-auto text-4xl text-center text-rose-red">
