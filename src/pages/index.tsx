@@ -9,7 +9,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { ToWords } from "to-words";
+import { LOCALES, ToWords } from "to-words";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -40,9 +40,12 @@ export default function Home() {
   const min = 0;
   const max = 100;
 
-  const toWords = new ToWords({
-    localeCode: "en-US",
-  });
+  const [localeCode, setLocaleCode] = useState("en-US");
+  const [toWords, setToWords] = useState(new ToWords({ localeCode }));
+
+  useEffect(() => {
+    setToWords(new ToWords({ localeCode }));
+  }, [localeCode]);
 
   const [answer, setAnswer] = useState(random(min, max));
   const [guess, setGuess] = useState("");
@@ -96,7 +99,7 @@ export default function Home() {
 
   return (
     <main
-      className={`flex flex-col h-dvh items-center justify-between ${inter.className} ${classNameOfAnimation(animation)} ${settingsOpen ? "bg-cerulean" : ""}`}
+      className={`flex flex-col h-screen items-center justify-between ${inter.className} ${classNameOfAnimation(animation)} ${settingsOpen ? "bg-cerulean p-16" : ""}`}
     >
       <Head>
         <title>Numeros · Practice Your Numbers!</title>
@@ -114,7 +117,7 @@ export default function Home() {
         <Menu as="div" className="relative inline-block text-left">
           <div>
             <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-non-photo-blue px-3 py-2 text-sm text-indigo-dye shadow-sm ring-1 ring-inset ring-cerulean hover:bg-celeste">
-              Change Language
+              Language ({localeCode})
               <ChevronDownIcon
                 aria-hidden="true"
                 className="-mr-1 h-5 w-5 text-gray-400"
@@ -124,43 +127,22 @@ export default function Home() {
 
           <MenuItems
             transition
-            className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+            className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-non-photo-blue shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
           >
             <div className="py-1">
-              <MenuItem>
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
-                >
-                  Account settings
-                </a>
-              </MenuItem>
-              <MenuItem>
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
-                >
-                  Support
-                </a>
-              </MenuItem>
-              <MenuItem>
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
-                >
-                  License
-                </a>
-              </MenuItem>
-              <form action="#" method="POST">
-                <MenuItem>
-                  <button
-                    type="submit"
-                    className="block w-full px-4 py-2 text-left text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
-                  >
-                    Sign out
-                  </button>
-                </MenuItem>
-              </form>
+              {Object.keys(LOCALES).map((localeCode, i) => {
+                return (
+                  <MenuItem key={i}>
+                    <a
+                      href="#"
+                      onClick={() => setLocaleCode(localeCode)}
+                      className="block px-4 py-1 text-sm text-indigo-dye hover:bg-celeste"
+                    >
+                      {localeCode}
+                    </a>
+                  </MenuItem>
+                );
+              })}
             </div>
           </MenuItems>
         </Menu>
