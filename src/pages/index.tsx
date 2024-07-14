@@ -8,8 +8,23 @@ function random(min: number, max: number): number {
   return Math.floor(Math.random() * max + min);
 }
 
-function isString(v: any): boolean {
-  return typeof v === "string" || v instanceof String;
+type Animation =
+  | {
+      kind: "flashClass";
+      className: string;
+    }
+  | {
+      kind: "flashFadeOut";
+    };
+
+function classNameOfAnimation(a: Animation | null): string {
+  if (a?.kind === "flashClass") {
+    return a.className;
+  } else if (a?.kind == "flashFadeOut") {
+    return "duration-700 transition-colors";
+  } else {
+    return "";
+  }
 }
 
 export default function Home() {
@@ -32,9 +47,15 @@ export default function Home() {
       } else if (e.keyCode === 13) {
         if (guess === answer.toString()) {
           setAnswer(random(min, max));
-          setAnim("bg-green");
+          setAnimation({
+            kind: "flashClass",
+            className: "bg-green",
+          });
         } else {
-          setAnim("bg-red");
+          setAnimation({
+            kind: "flashClass",
+            className: "bg-red",
+          });
         }
 
         setGuess("");
@@ -48,22 +69,24 @@ export default function Home() {
     };
   }, [guess]);
 
-  const [anim, setAnim] = useState<number | string>(0);
+  const [animation, setAnimation] = useState<Animation | null>(null);
 
   useEffect(() => {
-    if (isString(anim)) {
-      setAnim(2);
-    } else if (anim === 2) {
+    if (animation?.kind === "flashClass") {
+      setAnimation({
+        kind: "flashFadeOut",
+      });
+    } else if (animation?.kind === "flashFadeOut") {
       const timer = setTimeout(() => {
-        setAnim(0);
+        setAnimation(null);
       }, 700);
       return () => clearTimeout(timer);
     }
-  }, [anim]);
+  }, [animation]);
 
   return (
     <main
-      className={`flex flex-col h-screen items-center justify-between ${inter.className} ${anim === 0 ? "" : isString(anim) ? anim : "duration-700 transition-colors"}`}
+      className={`flex flex-col h-screen items-center justify-between ${inter.className} ${classNameOfAnimation(animation)}`}
     >
       <div className="flex grow items-center">
         <p className="drop-shadow-md hyphens-auto text-4xl text-center text-rose-red">
