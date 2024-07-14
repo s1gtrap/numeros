@@ -1,3 +1,4 @@
+import { Cog8ToothIcon } from "@heroicons/react/24/outline";
 import Head from "next/head";
 import { Inter } from "next/font/google";
 import React, {
@@ -87,30 +88,48 @@ export default function Home() {
     [answer, guess],
   );
 
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const toggleSettings = useCallback(() => {
+    setSettingsOpen(!settingsOpen);
+  }, [settingsOpen]);
+
   return (
     <main
-      className={`flex flex-col h-dvh items-center justify-between ${inter.className} ${classNameOfAnimation(animation)}`}
+      className={`flex flex-col h-dvh items-center justify-between ${inter.className} ${classNameOfAnimation(animation)} ${settingsOpen ? "bg-cerulean" : ""}`}
     >
       <Head>
         <title>Numeros · Practice Your Numbers!</title>
       </Head>
-      <div className="flex grow items-center">
-        <p className="drop-shadow-md hyphens-auto text-4xl text-center text-rose-red">
-          {toWords.convert(answer)}
-        </p>
-      </div>
-      <div className="flex grow w-full">
-        <input
-          className={`ppearance-none bg-striped focus:outline-none h-full placeholder-cerulean placeholder:font-thin placeholder:opacity-50 text-4xl text-center text-rose-red w-full`}
-          onChange={onGuessChange}
-          onKeyUp={onGuessKeyUp}
-          placeholder="Type the digits here!"
-          tabIndex={0}
-          type="number"
-          value={guess}
-          required={false}
+      <button
+        onClick={toggleSettings}
+        className="absolute top-0 right-0 m-4 sm:m-12"
+      >
+        <Cog8ToothIcon
+          className={`size-12 ${settingsOpen ? "text-non-photo-blue hover:text-celeste" : "text-cerulean hover:text-indigo-dye"}`}
         />
-      </div>
+      </button>
+
+      {settingsOpen ? null : (
+        <>
+          <div className="flex grow items-center">
+            <p className="drop-shadow-md hyphens-auto text-4xl text-center text-rose-red">
+              {toWords.convert(answer)}
+            </p>
+          </div>
+          <div className="flex grow w-full">
+            <input
+              className={`ppearance-none bg-striped focus:outline-none h-full placeholder-cerulean placeholder:font-thin placeholder:opacity-50 text-4xl text-center text-rose-red w-full`}
+              onChange={onGuessChange}
+              onKeyUp={onGuessKeyUp}
+              placeholder="Type the digits here!"
+              tabIndex={0}
+              type="number"
+              value={guess}
+              required={false}
+            />
+          </div>
+        </>
+      )}
     </main>
   );
 }
