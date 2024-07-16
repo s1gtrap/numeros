@@ -1,4 +1,12 @@
-import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import {
+  Field,
+  Input,
+  Label,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+} from "@headlessui/react";
 import { ChevronDownIcon, Cog8ToothIcon } from "@heroicons/react/24/outline";
 import Head from "next/head";
 import { Inter } from "next/font/google";
@@ -37,8 +45,10 @@ function classNameOfAnimation(a: Animation | null): string {
 }
 
 export default function Home() {
-  const min = 0;
-  const max = 100;
+  const [min, setMin] = useState(0);
+  const [minInvalid, setMinInvalid] = useState<string | null>(null);
+  const [max, setMax] = useState(100);
+  const [maxInvalid, setMaxInvalid] = useState<string | null>(null);
 
   const [localeCode, setLocaleCode] = useState("en-US");
   const [toWords, setToWords] = useState(new ToWords({ localeCode }));
@@ -97,6 +107,10 @@ export default function Home() {
     setSettingsOpen(!settingsOpen);
   }, [settingsOpen]);
 
+  useEffect(() => {
+    console.log(minInvalid);
+  }, [minInvalid]);
+
   return (
     <main
       className={`flex flex-col h-screen items-center justify-between ${inter.className} ${classNameOfAnimation(animation)} ${settingsOpen ? "bg-cerulean p-16" : ""}`}
@@ -114,38 +128,74 @@ export default function Home() {
       </button>
 
       {settingsOpen ? (
-        <Menu as="div" className="relative inline-block text-left">
-          <div>
-            <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-non-photo-blue px-3 py-2 text-sm text-indigo-dye shadow-sm ring-1 ring-inset ring-cerulean hover:bg-celeste">
-              Language ({localeCode})
-              <ChevronDownIcon
-                aria-hidden="true"
-                className="-mr-1 h-5 w-5 text-gray-400"
-              />
-            </MenuButton>
-          </div>
-
-          <MenuItems
-            transition
-            className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-non-photo-blue shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
-          >
-            <div className="py-1">
-              {Object.keys(LOCALES).map((localeCode, i) => {
-                return (
-                  <MenuItem key={i}>
-                    <a
-                      href="#"
-                      onClick={() => setLocaleCode(localeCode)}
-                      className="block px-4 py-1 text-sm text-indigo-dye hover:bg-celeste"
-                    >
-                      {localeCode}
-                    </a>
-                  </MenuItem>
-                );
-              })}
+        <div>
+          <Menu as="div" className="relative inline-block text-left">
+            <div>
+              <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-non-photo-blue px-3 py-2 text-sm text-indigo-dye shadow-sm ring-1 ring-inset ring-cerulean hover:bg-celeste">
+                Language ({localeCode})
+                <ChevronDownIcon
+                  aria-hidden="true"
+                  className="-mr-1 h-5 w-5 text-gray-400"
+                />
+              </MenuButton>
             </div>
-          </MenuItems>
-        </Menu>
+
+            <MenuItems
+              transition
+              className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-non-photo-blue shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+            >
+              <div className="py-1">
+                {Object.keys(LOCALES).map((localeCode, i) => {
+                  return (
+                    <MenuItem key={i}>
+                      <a
+                        href="#"
+                        onClick={() => setLocaleCode(localeCode)}
+                        className="block px-4 py-1 text-sm text-indigo-dye hover:bg-celeste"
+                      >
+                        {localeCode}
+                      </a>
+                    </MenuItem>
+                  );
+                })}
+              </div>
+            </MenuItems>
+          </Menu>
+          <Field>
+            <Label className="text-non-photo-blue">Minimum:</Label>
+            <Input
+              className={`inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-sm text-indigo-dye shadow-sm ring-1 ring-inset ring-cerulean ${minInvalid !== null ? "bg-rose-red" : "bg-non-photo-blue hover:bg-celeste"}`}
+              name="min"
+              required={true}
+              type="number"
+              value={minInvalid !== null ? minInvalid : min.toString()}
+              onChange={(e) => {
+                console.log("change", e.target.checkValidity());
+                if (e.target.checkValidity()) {
+                  setMin(parseInt(e.target.value));
+                  setMinInvalid(null);
+                } else setMinInvalid(e.target.value);
+              }}
+            />
+          </Field>
+          <Field>
+            <Label className="text-non-photo-blue">Maximum:</Label>
+            <Input
+              className={`inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-sm text-indigo-dye shadow-sm ring-1 ring-inset ring-cerulean ${maxInvalid !== null ? "bg-rose-red" : "bg-non-photo-blue hover:bg-celeste"}`}
+              name="min"
+              required={true}
+              type="number"
+              value={maxInvalid !== null ? maxInvalid : max.toString()}
+              onChange={(e) => {
+                console.log("change", e.target.checkValidity());
+                if (e.target.checkValidity()) {
+                  setMax(parseInt(e.target.value));
+                  setMaxInvalid(null);
+                } else setMaxInvalid(e.target.value);
+              }}
+            />
+          </Field>
+        </div>
       ) : (
         <>
           <div className="flex grow items-center">
