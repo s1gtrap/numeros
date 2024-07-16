@@ -14,13 +14,13 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --celeste: 174, 243, 231; /* #aef3e7 */
-    --cerulean: 55, 113, 142; /* #37718e */
+    --celeste: 15, 77, 66; /* #0f4d42 */
+    --cerulean: 116, 169, 195; /* #74a9c3 */
     --green: 0, 255, 0; /* #00ff00 */
-    --indigodye: 37, 78, 112; /* #254e70 */
-    --nonphotoblue: 142, 227, 239; /* #8ee3ef */
+    --indigodye: 147, 184, 215; /* #93b8d7 */
+    --nonphotoblue: 20, 97, 107; /* #14616b */
     --red: 255, 0, 0; /* #ff0000 */
-    --rosered: 195, 60, 84; /* #c33c54 */
+    --rosered: 189, 66, 89; /* #bd4259 */
   }
 }
 
