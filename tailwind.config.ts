@@ -8,13 +8,15 @@ const config: Config = {
   ],
   theme: {
     colors: {
-      celeste: "#aef3e7",
-      cerulean: "#37718e",
-      green: "#00ff0088",
-      "indigo-dye": "#254e70",
-      "non-photo-blue": "#8ee3ef",
-      red: "#ff000088",
-      "rose-red": "#c33c54ff",
+      celeste: "rgb(var(--celeste))",
+      cerulean: "rgb(var(--cerulean))",
+      green: "rgb(var(--green))",
+      "green/50": "rgba(var(--green), 0.2)",
+      "indigo-dye": "rgb(var(--indigodye))",
+      "non-photo-blue": "rgb(var(--nonphotoblue))",
+      red: "rgb(var(--red))",
+      "red/50": "rgba(var(--red), 0.2)",
+      "rose-red": "rgb(var(--rosered))",
     },
     extend: {
       backgroundImage: {

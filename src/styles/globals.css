@@ -3,16 +3,24 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --celeste: 174, 243, 231; /* #aef3e7 */
+  --cerulean: 55, 113, 142; /* #37718e */
+  --green: 0, 255, 0; /* #00ff00 */
+  --indigodye: 37, 78, 112; /* #254e70 */
+  --nonphotoblue: 142, 227, 239; /* #8ee3ef */
+  --red: 255, 0, 0; /* #ff0000 */
+  --rosered: 195, 60, 84; /* #c33c54 */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --celeste: 174, 243, 231; /* #aef3e7 */
+    --cerulean: 55, 113, 142; /* #37718e */
+    --green: 0, 255, 0; /* #00ff00 */
+    --indigodye: 37, 78, 112; /* #254e70 */
+    --nonphotoblue: 142, 227, 239; /* #8ee3ef */
+    --red: 255, 0, 0; /* #ff0000 */
+    --rosered: 195, 60, 84; /* #c33c54 */
   }
 }
 
@@ -20,4 +28,20 @@
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.bg-striped {
+  -moz-appearance: textfield;
+
+  ::-webkit-outer-spin-button,
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  background: transparent;
+}
+
+.bg-striped:invalid {
+  background: rgba(var(--rosered), 0.5);
 }
