@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { Inter } from "next/font/google";
 import React, {
   ChangeEvent,
@@ -90,6 +91,9 @@ export default function Home() {
     <main
       className={`flex flex-col h-dvh items-center justify-between ${inter.className} ${classNameOfAnimation(animation)}`}
     >
+      <Head>
+        <title>Numeros · Practice Your Numbers!</title>
+      </Head>
       <div className="flex grow items-center">
         <p className="drop-shadow-md hyphens-auto text-4xl text-center text-rose-red">
           {toWords.convert(answer)}
