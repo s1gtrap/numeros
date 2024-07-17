@@ -14,7 +14,7 @@
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
-    "to-words": "https://github.com/s1gtrap/to-words.git#62493921d280bc521166229b787b419f44cbcbae"
+    "to-words": "^4.1.0"
   },
   "devDependencies": {
     "@types/node": "^20",
