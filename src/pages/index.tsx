@@ -84,7 +84,7 @@ export default function Home() {
         setGuess("");
       }
     },
-    [guess],
+    [answer, guess],
   );
 
   return (
